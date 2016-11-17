@@ -72,27 +72,6 @@ describe('react-portal', () => {
     assert.equal(closePortal, wrapper.instance().closePortal);
   });
 
-  it('should add className to the portal\'s wrapping node', () => {
-    mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild.className, 'some-class');
-  });
-
-  it('should add inline style to the portal\'s wrapping node', () => {
-    mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
-    assert.equal(document.body.lastElementChild.style.color, 'blue');
-  });
-
-  it('should update className on the portal\'s wrapping node when props.className changes', () => {
-    const wrapper = mount(<Portal className="some-class" isOpened><p>Hi</p></Portal>);
-    wrapper.setProps({ className: 'some-other-class', children: <p>Hi</p> });
-    assert.equal(document.body.lastElementChild.className, 'some-other-class');
-  });
-
-  it('should update inline style on the portal\'s wrapping node when props.style changes', () => {
-    const wrapper = mount(<Portal isOpened style={{ color: 'blue' }}><p>Hi</p></Portal>);
-    wrapper.setProps({ style: { color: 'red' }, children: <p>Hi</p> });
-    assert.equal(document.body.lastElementChild.style.color, 'red');
-  });
 
   describe('callbacks', () => {
     it('should call props.beforeClose() if passed when calling Portal.closePortal()', () => {
@@ -119,18 +98,18 @@ describe('react-portal', () => {
     });
 
     it('should not call props.onOpen() when portal receives props', () => {
-      const props = { isOpened: true, onOpen: spy(), className: 'old' };
+      const props = { isOpened: true, onOpen: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onOpen.calledOnce);
-      wrapper.setProps({ isOpened: true, children: <p>Hi</p>, className: 'new' });
+      wrapper.setProps({ isOpened: true, children: <p>Hi</p> });
       assert(props.onOpen.calledOnce);
     });
 
     it('should call props.onUpdate() when portal is opened or receives props', () => {
-      const props = { isOpened: true, onUpdate: spy(), className: 'old' };
+      const props = { isOpened: true, onUpdate: spy() };
       const wrapper = mount(<Portal {...props}><p>Hi</p></Portal>);
       assert(props.onUpdate.calledOnce);
-      wrapper.setProps({ isOpened: true, children: <p>Hi</p>, className: 'new' });
+      wrapper.setProps({ isOpened: true, children: <p>Hi</p> });
       assert(props.onUpdate.calledTwice);
     });
 
