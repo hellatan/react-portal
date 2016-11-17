@@ -1,10 +1,8 @@
-React-portal
+React-body-subtree
 ============
-[![npm version](https://img.shields.io/npm/v/react-portal.svg?style=flat-square)](https://www.npmjs.com/package/react-portal)
-[![npm downloads](https://img.shields.io/npm/dm/react-portal.svg?style=flat-square)](https://www.npmjs.com/package/react-portal)
-[![Build Status](https://travis-ci.org/tajo/react-portal.svg?branch=master)](https://travis-ci.org/tajo/react-portal)
+**Note** This is a fork of [react-portal](https://github.com/tajo/react-portal) that fits more to our needs. Development and functionality may divert from the original package to address these concerns.
 
-> Struggling with modals, lightboxes or loading bars in React? React-portal creates a new top-level React tree and injects its child into it. That's necessary for proper styling (especially positioning).
+> React-body-subtree is a react component that, instead of rendering it's children as a subtree in it's current render path, it renders it's children as a new React subtree within `<body>`. This is useful for modals and the like.
 
 ## Features
 
@@ -20,11 +18,9 @@ React-portal
 
 ## Demo
 
-Try [https://miksu.cz/react-portal](https://miksu.cz/react-portal) **or**
-
 ```shell
-git clone https://github.com/tajo/react-portal
-cd react-portal
+git clone https://github.com/1stdibs/react-body-subtree
+cd react-body-subtree
 npm install
 npm run build:examples
 open examples/index.html
@@ -33,14 +29,14 @@ open examples/index.html
 ## Installation
 
 ```shell
-npm install react react-dom react-portal --save
+npm install react react-dom react-body-subtree --save
 ```
 
 ## Usage
 ```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Portal from 'react-portal';
+import BodySubtree from 'react-body-subtree';
 
 export default class App extends React.Component {
 
@@ -48,12 +44,12 @@ export default class App extends React.Component {
     const button1 = <button>Open portal with pseudo modal</button>;
 
     return (
-      <Portal closeOnEsc closeOnOutsideClick openByClickOn={button1}>
+      <BodySubtree closeOnEsc closeOnOutsideClick openByClickOn={button1}>
         <PseudoModal>
           <h2>Pseudo Modal</h2>
           <p>This react component is appended to the document body.</p>
         </PseudoModal>
-      </Portal>
+      </BodySubtree>
     );
   }
 
@@ -84,7 +80,7 @@ The portal expects one child (`<Portal><Child ... /></Portal>`) that will be por
 ### One of these two required
 
 #### isOpened : bool
-If true, the portal is open. If false, the portal is closed. It's up to you to take care of the closing (aka taking care of the state). Don't use this prop if you want to make your life easier. Use openByClickOn instead!
+If true, the component will be rendered to `<body>`. If false, it will be unmounted. It's up to you to take care of the closing (aka taking care of the state). Don't use this prop if you want to make your life easier. Use openByClickOn instead!
 
 #### openByClickOn : ReactElement
 The second way how to open the portal. This element will be rendered by the portal immediately
@@ -151,18 +147,6 @@ this.refs.myPortal.openPortal()
 // opens the portal, yay!
 ```
 
-## Contribution
-
-Please, create issues and pull requests.
-
-```shell
-git clone https://github.com/tajo/react-portal
-cd react-portal
-npm install
-npm start
-open http://localhost:3000
-```
-
 **Don't forget to run this before every commit:**
 
 ```
@@ -171,6 +155,4 @@ npm test
 
 ## Credits
 
-Inspired by the talk [React.js Conf 2015 - Hype!, Ryan Florence](https://www.youtube.com/watch?v=z5e7kWSHWTg)
-
-Vojtech Miksu 2015, [miksu.cz](https://miksu.cz), [@vmiksu](https://twitter.com/vmiksu)
+- [react-portal](https://github.com/tajo/react-portal) originally inspired by the talk [React.js Conf 2015 - Hype!, Ryan Florence](https://www.youtube.com/watch?v=z5e7kWSHWTg) and written by Vojtech Miksu 2015, [miksu.cz](https://miksu.cz), [@vmiksu](https://twitter.com/vmiksu)
